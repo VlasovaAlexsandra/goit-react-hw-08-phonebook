@@ -1,3 +1,6 @@
+import { connect } from 'react-redux';
+import { authSelectors, authOperations } from '../redux/Auth/index'
+
 const styles = {
     container: {
         display: 'flex',
@@ -24,4 +27,12 @@ const UserMenu = ({ avatar, name, onLogout }) => (
 
 )
 
-export default UserMenu
+const mapStateToProps = (state) => ({
+    name: authSelectors.getUsername(state)
+})
+
+const mapDispatchToProps = {
+    onLogout: authOperations.logOut
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserMenu)
