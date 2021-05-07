@@ -12,4 +12,12 @@ export const deleteContactRequest = createAction('contacts/deleteContactRequest'
 export const deleteContactSuccess = createAction('contacts / deleteContactSuccess')
 export const deleteContactError = createAction('contacts/deleteContactError')
 
+export const toggleContactRequest = createAction(
+    'contacts/toggleContactRequest',
+);
+export const toggleContactSuccess = createAction(
+    'contacts/toggleContactSuccess',
+);
+export const toggleContactError = createAction('contacts/toggleContactError');
+
 export const changeFilter = createAction('contacts/changeFilter')

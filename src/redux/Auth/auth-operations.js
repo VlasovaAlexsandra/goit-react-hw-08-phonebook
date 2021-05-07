@@ -81,24 +81,24 @@ const logOut = () => async dispatch => {
  * 3. Если токен есть, добавляет его в HTTP-заголовок и выполянем операцию
  */
 const getCurrentUser = () => async (dispatch, getState) => {
-    // const {
-    //     auth: { token: persistedToken },
-    // } = getState();
+    const {
+        auth: { token: persistedToken },
+    } = getState();
 
-    // if (!persistedToken) {
-    //     return;
-    // }
+    if (!persistedToken) {
+        return;
+    }
 
-    // token.set(persistedToken);
-    // dispatch(authActions.getCurrentUserRequest());
+    token.set(persistedToken);
+    dispatch(authActions.getCurrentUserRequest());
 
-    // try {
-    //     const response = await axios.get('/users/current');
+    try {
+        const response = await axios.get('/users/current');
 
-    //     dispatch(authActions.getCurrentUserSuccess(response.data));
-    // } catch (error) {
-    //     dispatch(authActions.getCurrentUserError(error.message));
-    // }
+        dispatch(authActions.getCurrentUserSuccess(response.data));
+    } catch (error) {
+        dispatch(authActions.getCurrentUserError(error.message));
+    }
 };
 
 // eslint-disable-next-line

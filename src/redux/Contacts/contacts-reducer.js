@@ -10,14 +10,19 @@ import {
     changeFilter,
     fetchContactRequest,
     fetchContactSuccess,
-    fetchContactError
+    fetchContactError,
+    toggleContactRequest,
+    toggleContactSuccess,
+    toggleContactError
 } from './contacts-actions'
 
 const items = createReducer([], {
     [fetchContactSuccess]: (_, { payload }) => payload,
     [addContactSuccess]: (state, { payload }) => [...state, payload],
     [deleteContactSuccess]: (state, { payload }) =>
-        state.filter(contact => contact.id !== payload)
+        state.filter(contact => contact.id !== payload),
+    [toggleContactSuccess]: (state, { payload }) =>
+        state.map(contact => (contact.id === payload.id ? payload : contact)),
 
 })
 
@@ -32,7 +37,11 @@ const loading = createReducer(false, {
 
     [deleteContactRequest]: () => true,
     [deleteContactSuccess]: () => false,
-    [deleteContactError]: () => false
+    [deleteContactError]: () => false,
+
+    [toggleContactRequest]: () => true,
+    [toggleContactSuccess]: () => false,
+    [toggleContactError]: () => false,
 })
 
 const filter = createReducer('', {

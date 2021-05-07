@@ -8,7 +8,10 @@ import {
     deleteContactError,
     fetchContactRequest,
     fetchContactSuccess,
-    fetchContactError
+    fetchContactError,
+    toggleContactRequest,
+    toggleContactSuccess,
+    toggleContactError
 } from './contacts-actions'
 
 // axios.defaults.baseURL = 'http://localhost:3000/'
@@ -17,9 +20,9 @@ const fetchContacts = () => dispatch => {
     dispatch(fetchContactRequest())
 
     axios
-        .get('./contacts')
+        .get('/contacts')
         .then(({ data }) => dispatch(fetchContactSuccess(data)))
-        .catch(error => dispatch(fetchContactError(error)))
+        .catch(error => dispatch(fetchContactError(error.message)))
 
 }
 
@@ -31,7 +34,7 @@ const addContacts = (name, number) => dispatch => {
     axios
         .post('/contacts', contact)
         .then(({ data }) => dispatch(addContactSuccess(data)))
-        .catch(error => dispatch(addContactError(error)))
+        .catch(error => dispatch(addContactError(error.message)))
 }
 
 const deleteContacts = id => dispatch => {
@@ -40,7 +43,18 @@ const deleteContacts = id => dispatch => {
     axios
         .delete(`/contacts/${id}`)
         .then(() => dispatch(deleteContactSuccess(id)))
-        .catch(error => dispatch(deleteContactError(error)))
+        .catch(error => dispatch(deleteContactError(error.message)))
+
+
+}
+
+const toggleContacts = id => dispatch => {
+    dispatch(toggleContactRequest())
+
+    axios
+        .patch(`/contacts/${id}`)
+        .then(({ data }) => dispatch(toggleContactSuccess(data)))
+        .catch(error => dispatch(toggleContactError(error.message)))
 }
 
 // eslint-disable-next-line
@@ -48,5 +62,6 @@ export default {
     fetchContacts,
     addContacts,
     deleteContacts,
+    toggleContacts,
 
 }
