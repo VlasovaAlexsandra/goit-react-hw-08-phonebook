@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import Container from '../components/Container/index';
 import ContactForm from '../components/Form/ContactForm/ContactForm';
 import ContactList from '../components/Form/ContactList/ContactList';
 import Filter from '../components/Form/Filter/Filter';
-// import ContactsOperations from '../redux/Contacts/contacts-operations';
-// import ContactsSelectors from '../redux/Contacts/contacts-selectors';
+import { contactsOperations } from '../redux/Contacts/index';
 
 // const barStyles = {
 //     display: 'flex',
@@ -15,10 +14,9 @@ import Filter from '../components/Form/Filter/Filter';
 
 class ContactsView extends Component {
 
-
-    // componentDidMount() {
-    //     this.props.fetchContacts();
-    // }
+    componentDidMount() {
+        this.props.fetchContacts();
+    }
 
     render() {
 
@@ -36,12 +34,11 @@ class ContactsView extends Component {
 }
 
 // const mapStateToProps = state => ({
-//     isLoadingTodos: ContactsSelectors.getLoading(state),
+//     isLoadingContacts: contactsSelectors.getLoading(state),
 // });
 
-// const mapDispatchToProps = dispatch => ({
-//     fetchContacts: () => dispatch(ContactsOperations.fetchContacts()),
-// });
+const mapDispatchToProps = dispatch => ({
+    fetchContacts: () => dispatch(contactsOperations.fetchContacts()),
+});
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ContactsView);
-export default ContactsView;
+export default connect(null, mapDispatchToProps)(ContactsView);
